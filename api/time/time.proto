@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package time;
+
+import "google/api/annotations.proto";
+
+service Time {
+  rpc Timezone(ReqTimezone) returns (ResTimezone) {
+    option (google.api.http) = {
+      get: "/time/timezone"
+    };
+  }
+}
+
+message ReqTimezone {
+  string time = 1;
+  string zone = 2;
+}
+
+message ResTimezone {
+    string time = 1;
+}

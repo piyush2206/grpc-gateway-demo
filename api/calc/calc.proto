@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package calc;
+
+import "google/api/annotations.proto";
+
+service Calc {
+  rpc Percent(ReqPercent) returns (ResPercent) {
+    option (google.api.http) = {
+      post: "/calc/percent"
+      body: "*"
+    };
+  }
+}
+
+message ReqPercent {
+  repeated float val = 1;
+  float percent = 2;
+}
+
+message ResPercent {
+    repeated float val = 1;
+}
