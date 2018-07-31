@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package student;
+
+import "google/api/annotations.proto";
+
+service Student {
+    rpc Profile(ReqProfile) returns (ResProfile) {
+        option (google.api.http) = {
+            get: "/student/profile"
+        };
+    }
+}
+
+message ReqProfile {
+    string id = 1;
+}
+
+message ResProfile {
+    string studentName = 1;
+    repeated Subject subjects = 2;
+    float grandTotal = 3;
+    float grandTotalMarks = 4;
+}
+
+message Subject {
+    string subjectName = 1;
+    float total = 2;
+    float marks = 3;
+}

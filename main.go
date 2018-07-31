@@ -8,8 +8,8 @@ import (
 	"net/http"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/piyush2206/grpc-gateway-demo/api/calc"
-	"github.com/piyush2206/grpc-gateway-demo/api/time"
+	"github.com/piyush2206/grpc-gateway-demo/student"
+	"github.com/piyush2206/grpc-gateway-demo/time"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -38,7 +38,7 @@ func startGRPCServer() {
 	s := grpc.NewServer()
 
 	time.RegisterTimeServer(s, &time.EntityTime{})
-	calc.RegisterCalcServer(s, &calc.EntityCalc{})
+	student.RegisterStudentServer(s, &student.GRPCStudent{})
 
 	// Register reflection service on gRPC server.
 	reflection.Register(s)
@@ -59,7 +59,7 @@ func startGRPCGateway() error {
 
 	for _, f := range []func(context.Context, *runtime.ServeMux, string, []grpc.DialOption) error{
 		time.RegisterTimeHandlerFromEndpoint,
-		calc.RegisterCalcHandlerFromEndpoint,
+		student.RegisterStudentHandlerFromEndpoint,
 	} {
 		if err := f(ctx, mux, grpcAddr, opts); err != nil {
 			return err
